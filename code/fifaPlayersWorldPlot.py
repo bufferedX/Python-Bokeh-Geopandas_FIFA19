@@ -35,7 +35,7 @@ def update_plot(attrname, old, new):
     p.title.text = "Worldwide spread of " + position_select.value + " in FIFA19"
 
 print(os.getcwd())
-shapefile = '..//data//countryMap//ne_110m_admin_0_countries.shp'
+shapefile = 'data//countryMap//ne_110m_admin_0_countries.shp'
 #Read shapefile using Geopandas
 gdf = gpd.read_file(shapefile)[['ADMIN', 'ADM0_A3', 'geometry']]
 #Rename columns.
@@ -43,7 +43,7 @@ gdf.columns = ['country', 'country_code', 'geometry']
 #gdf.head()
 
 #Importing the dataset
-dataset = pd.read_csv('..//data//FootballData.csv')
+dataset = pd.read_csv('data//FootballData.csv')
 POS = []
 for x in dataset['Position']:
     if x == 'GK':
