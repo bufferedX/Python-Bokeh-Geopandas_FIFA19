@@ -44,6 +44,7 @@ gdf.columns = ['country', 'country_code', 'geometry']
 
 #Importing the dataset
 dataset = pd.read_csv('data//FootballData.csv')
+dataset.replace(to_replace = 'England' , value = 'United Kingdom',inplace=True)
 POS = []
 for x in dataset['Position']:
     if x == 'GK':
