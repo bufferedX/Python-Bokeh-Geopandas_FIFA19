@@ -5,6 +5,7 @@ Created on Wed Jun 26 23:29:56 2019
 @author: Sandipani
 """
 import json
+import os
 import pandas as pd
 import geopandas as gpd
 from bokeh.io import  show,curdoc
@@ -15,7 +16,7 @@ from bokeh.palettes import brewer
 
 def json_data(position):
     dataset1 = dataset[dataset.POS == str(position)].groupby('Nationality').count()[['Name']]
-    dataset1['Nationality'] = dataset1.index
+    #dataset1['Nationality'] = dataset1.index
     dataset1.rename(columns =  {'Name':'Count'},inplace = True)
     
     #Merge dataframes gdf and df_2016.
@@ -33,16 +34,16 @@ def update_plot(attrname, old, new):
     geosource.geojson = new_data
     p.title.text = "Worldwide spread of " + position_select.value + " in FIFA19"
 
-
-shapefile = '../data/countryMap/ne_110m_admin_0_countries.shp'
+print(os.getcwd())
+shapefile = '..//data//countryMap//ne_110m_admin_0_countries.shp'
 #Read shapefile using Geopandas
 gdf = gpd.read_file(shapefile)[['ADMIN', 'ADM0_A3', 'geometry']]
 #Rename columns.
 gdf.columns = ['country', 'country_code', 'geometry']
-gdf.head()
+#gdf.head()
 
 #Importing the dataset
-dataset = pd.read_csv('../data/FootballData.csv')
+dataset = pd.read_csv('..//data//FootballData.csv')
 POS = []
 for x in dataset['Position']:
     if x == 'GK':
@@ -85,7 +86,7 @@ p.add_layout(color_bar, 'below')
 
     
 position_select = Select(value='Goalkeeper', title='Position', 
-                     options=['Goalkeeper','Defender','Midfielder','Attacker'])
+                      options=['Goalkeeper','Defender','Midfielder','Attacker'])
 
 position_select.on_change('value',update_plot)
 
@@ -95,4 +96,3 @@ curdoc().add_root(layout)
 #Display plot inline in Jupyter notebook
 #Display plot
 show(layout)
-  
