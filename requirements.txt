@@ -2,3 +2,4 @@ json
 pandas
 geopandas
 bokeh
+gunicorn
